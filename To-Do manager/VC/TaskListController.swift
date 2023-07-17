@@ -32,6 +32,17 @@ class TaskListController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return tasks.count
     }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        var title: String?
+        let taskType = sectionTypesPosition[section]
+        if taskType == .important {
+            title = "Important"
+        } else if taskType == .normal {
+            title = "Normal"
+        }
+        return title
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let taskType = sectionTypesPosition[section]
