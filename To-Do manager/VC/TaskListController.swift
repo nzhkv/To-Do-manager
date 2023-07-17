@@ -20,7 +20,6 @@ class TaskListController: UITableViewController {
     
     private func loadTasks() {
         sectionTypesPosition.forEach { taskType in
-            print(taskType)
             tasks[taskType] = []
         }
         taskStorage.loadTasks().forEach { task in
@@ -40,43 +39,41 @@ class TaskListController: UITableViewController {
         return currentTasksType.count
     }
 
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-//
-//        return cell
-//    }
-//
-//    private func getConfiguredTaskCell_constrains(for indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "taskCellConstraints", for: indexPath)
-//        let taskType = sectionTypesPosition[indexPath.section]
-//        guard let currentTask = tasks[taskType]?[indexPath.row] else { return cell }
-//        let symbolLabel = cell.viewWithTag(1) as? UILabel
-//        let textLabel = cell.viewWithTag(2) as? UILabel
-//
-//        symbolLabel?.text = getSymbolForTasks(with: currentTask.status)
-//        textLabel?.text = currentTask.title
-//
-//        if currentTask.status == .planned {
-//            textLabel?.textColor = .black
-//            symbolLabel?.textColor = .black
-//        } else {
-//            textLabel?.textColor = .lightGray
-//            symbolLabel?.textColor = .lightGray
-//        }
-//        return cell
-//    }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return getConfiguredTaskCell_constrains(for: indexPath)
+    }
+
+    private func getConfiguredTaskCell_constrains(for indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "taskCellConstraints", for: indexPath)
+        let taskType = sectionTypesPosition[indexPath.section]
+        guard let currentTask = tasks[taskType]?[indexPath.row] else { return cell }
+        let symbolLabel = cell.viewWithTag(1) as? UILabel
+        let textLabel = cell.viewWithTag(2) as? UILabel
+
+        symbolLabel?.text = getSymbolForTasks(with: currentTask.status)
+        textLabel?.text = currentTask.title
+
+        if currentTask.status == .planned {
+            textLabel?.textColor = .black
+            symbolLabel?.textColor = .black
+        } else {
+            textLabel?.textColor = .lightGray
+            symbolLabel?.textColor = .lightGray
+        }
+        return cell
+    }
     
-//    private func getSymbolForTasks(with status: TaskStatus) -> String {
-//        var resultSymbol: String
-//        if status == .planned {
-//            resultSymbol = "\u{25CB}"
-//        } else if status == .complited {
-//            resultSymbol = "\u{25C9}"
-//        } else {
-//            resultSymbol = ""
-//        }
-//        return resultSymbol
-//    }
+    private func getSymbolForTasks(with status: TaskStatus) -> String {
+        var resultSymbol: String
+        if status == .planned {
+            resultSymbol = "\u{25CB}"
+        } else if status == .complited {
+            resultSymbol = "\u{25C9}"
+        } else {
+            resultSymbol = ""
+        }
+        return resultSymbol
+    }
 
 
     /*

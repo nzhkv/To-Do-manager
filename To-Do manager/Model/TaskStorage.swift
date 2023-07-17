@@ -14,7 +14,7 @@ protocol TaskStorageProtocol {
 
 class TaskStorage: TaskStorageProtocol {
     func loadTasks() -> [TaskProtocol] {
-        // hdеменная реализация
+        // временная реализация
         let testTasks: [TaskProtocol] = [
             Task(title: "Buy milk", type: .normal, status: .planned),
             Task(title: "Wash kat", type: .important, status: .planned),
