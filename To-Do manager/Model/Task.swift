@@ -12,9 +12,9 @@ enum TaskPriority {
     case important
 }
 
-enum TaskStatus {
-    case planned
+enum TaskStatus: Int {
     case complited
+    case planned
 }
 
 protocol TaskProtocol {
