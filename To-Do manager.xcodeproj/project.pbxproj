@@ -16,6 +16,10 @@
 		2ECB20B72A63F9ED00FFB6A6 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB20B62A63F9ED00FFB6A6 /* Task.swift */; };
 		2ECB20B92A63FBEB00FFB6A6 /* TaskStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB20B82A63FBEB00FFB6A6 /* TaskStorage.swift */; };
 		2ECB20BC2A643B7300FFB6A6 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB20BB2A643B7300FFB6A6 /* TaskCell.swift */; };
+		2ECB20BE2A67FC0E00FFB6A6 /* TaskEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB20BD2A67FC0E00FFB6A6 /* TaskEditController.swift */; };
+		2ECB20C02A68063B00FFB6A6 /* TaskTypeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB20BF2A68063B00FFB6A6 /* TaskTypeController.swift */; };
+		2ECB20C32A6807C000FFB6A6 /* TaskTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB20C12A6807C000FFB6A6 /* TaskTypeCell.swift */; };
+		2ECB20C42A6807C000FFB6A6 /* TaskTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ECB20C22A6807C000FFB6A6 /* TaskTypeCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +34,10 @@
 		2ECB20B62A63F9ED00FFB6A6 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		2ECB20B82A63FBEB00FFB6A6 /* TaskStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStorage.swift; sourceTree = "<group>"; };
 		2ECB20BB2A643B7300FFB6A6 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		2ECB20BD2A67FC0E00FFB6A6 /* TaskEditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditController.swift; sourceTree = "<group>"; };
+		2ECB20BF2A68063B00FFB6A6 /* TaskTypeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTypeController.swift; sourceTree = "<group>"; };
+		2ECB20C12A6807C000FFB6A6 /* TaskTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTypeCell.swift; sourceTree = "<group>"; };
+		2ECB20C22A6807C000FFB6A6 /* TaskTypeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTypeCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +87,8 @@
 			children = (
 				2ECB20BA2A6439D400FFB6A6 /* Cells */,
 				2ECB20B32A63F90900FFB6A6 /* TaskListController.swift */,
+				2ECB20BD2A67FC0E00FFB6A6 /* TaskEditController.swift */,
+				2ECB20BF2A68063B00FFB6A6 /* TaskTypeController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -96,6 +106,8 @@
 			isa = PBXGroup;
 			children = (
 				2ECB20BB2A643B7300FFB6A6 /* TaskCell.swift */,
+				2ECB20C12A6807C000FFB6A6 /* TaskTypeCell.swift */,
+				2ECB20C22A6807C000FFB6A6 /* TaskTypeCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -160,6 +172,7 @@
 			files = (
 				2ECB20AB2A63F7CA00FFB6A6 /* LaunchScreen.storyboard in Resources */,
 				2ECB20A82A63F7CA00FFB6A6 /* Assets.xcassets in Resources */,
+				2ECB20C42A6807C000FFB6A6 /* TaskTypeCell.xib in Resources */,
 				2ECB20A62A63F7C900FFB6A6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -175,8 +188,11 @@
 				2ECB209F2A63F7C900FFB6A6 /* AppDelegate.swift in Sources */,
 				2ECB20A12A63F7C900FFB6A6 /* SceneDelegate.swift in Sources */,
 				2ECB20B92A63FBEB00FFB6A6 /* TaskStorage.swift in Sources */,
+				2ECB20C02A68063B00FFB6A6 /* TaskTypeController.swift in Sources */,
 				2ECB20BC2A643B7300FFB6A6 /* TaskCell.swift in Sources */,
 				2ECB20B42A63F90900FFB6A6 /* TaskListController.swift in Sources */,
+				2ECB20BE2A67FC0E00FFB6A6 /* TaskEditController.swift in Sources */,
+				2ECB20C32A6807C000FFB6A6 /* TaskTypeCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
