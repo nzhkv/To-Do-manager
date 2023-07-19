@@ -59,25 +59,43 @@ class TaskListController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return getConfiguredTaskCell_constrains(for: indexPath)
+//        return getConfiguredTaskCell_constrains(for: indexPath)
+        return getConfiguredTaskCell_stack(for: indexPath)
     }
 
-    private func getConfiguredTaskCell_constrains(for indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "taskCellConstraints", for: indexPath)
+//    private func getConfiguredTaskCell_constrains(for indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "taskCellConstraints", for: indexPath)
+//        let taskType = sectionTypesPosition[indexPath.section]
+//        guard let currentTask = tasks[taskType]?[indexPath.row] else { return cell }
+//        let symbolLabel = cell.viewWithTag(1) as? UILabel
+//        let textLabel = cell.viewWithTag(2) as? UILabel
+//
+//        symbolLabel?.text = getSymbolForTasks(with: currentTask.status)
+//        textLabel?.text = currentTask.title
+//
+//        if currentTask.status == .planned {
+//            textLabel?.textColor = .black
+//            symbolLabel?.textColor = .black
+//        } else {
+//            textLabel?.textColor = .lightGray
+//            symbolLabel?.textColor = .lightGray
+//        }
+//        return cell
+//    }
+    
+    private func getConfiguredTaskCell_stack(for indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "taskCellStack", for: indexPath) as! TaskCell
         let taskType = sectionTypesPosition[indexPath.section]
         guard let currentTask = tasks[taskType]?[indexPath.row] else { return cell }
-        let symbolLabel = cell.viewWithTag(1) as? UILabel
-        let textLabel = cell.viewWithTag(2) as? UILabel
-
-        symbolLabel?.text = getSymbolForTasks(with: currentTask.status)
-        textLabel?.text = currentTask.title
-
+        cell.title.text = currentTask.title
+        cell.symbol.text = getSymbolForTasks(with: currentTask.status)
+        
         if currentTask.status == .planned {
-            textLabel?.textColor = .black
-            symbolLabel?.textColor = .black
+            cell.title.textColor = .black
+            cell.symbol.textColor = .black
         } else {
-            textLabel?.textColor = .lightGray
-            symbolLabel?.textColor = .lightGray
+            cell.title.textColor = .lightGray
+            cell.symbol.textColor = .lightGray
         }
         return cell
     }
