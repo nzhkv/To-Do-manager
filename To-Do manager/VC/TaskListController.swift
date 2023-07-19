@@ -27,6 +27,7 @@ class TaskListController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadTasks()
+        navigationItem.leftBarButtonItem = editButtonItem
     }
     
     private func loadTasks() {
@@ -36,6 +37,12 @@ class TaskListController: UITableViewController {
         taskStorage.loadTasks().forEach { task in
             tasks[task.type]?.append(task)
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let taskType = sectionTypesPosition[indexPath.section]
+        tasks[taskType]?.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
     }
 
     // MARK: - Table view data source
