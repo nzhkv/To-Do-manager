@@ -26,8 +26,8 @@ class TaskListController: UITableViewController {
         taskStorage.loadTasks().forEach { task in
             tasks[task.type]?.append(task)
         }
-        for (taskGrouppriority, taskGroup) in tasks {
-            tasks[taskGrouppriority] = taskGroup.sorted { task1, task2 in
+        for (taskGroupPriority, taskGroup) in tasks {
+            tasks[taskGroupPriority] = taskGroup.sorted { task1, task2 in
                 let task1position = taskStatusPosition.firstIndex(of: task1.status) ?? 0
                 let task2position = taskStatusPosition.firstIndex(of: task2.status) ?? 0
                 return task1position < task2position
