@@ -39,10 +39,28 @@ class TaskListController: UITableViewController {
         }
     }
     
+    // удаление ячеек
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         let taskType = sectionTypesPosition[indexPath.section]
         tasks[taskType]?.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+    
+    // перетаскивание ячеек
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let taskTypeFrom = sectionTypesPosition[sourceIndexPath.section]
+        let taskTypeTo = sectionTypesPosition[destinationIndexPath.section]
+        
+        guard let movedTask = tasks[taskTypeFrom]?[sourceIndexPath.row] else { return }
+        
+        tasks[taskTypeFrom]!.remove(at: sourceIndexPath.row)
+        tasks[taskTypeTo]!.insert(movedTask, at: destinationIndexPath.row)
+        
+        if taskTypeFrom != taskTypeTo {
+            tasks[taskTypeTo]![destinationIndexPath.row].type = taskTypeTo
+        }
+        
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source
