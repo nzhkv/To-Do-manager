@@ -10,7 +10,17 @@ import UIKit
 class TaskListController: UITableViewController {
     
     var taskStorage: TaskStorageProtocol = TaskStorage()
-    var tasks: [TaskPriority: [TaskProtocol]] = [:]
+    var tasks: [TaskPriority: [TaskProtocol]] = [:] {
+        didSet {
+            for (taskGroupPriority, taskGroup) in tasks {
+                tasks[taskGroupPriority] = taskGroup.sorted { task1, task2 in
+                    let task1position = taskStatusPosition.firstIndex(of: task1.status) ?? 0
+                    let task2position = taskStatusPosition.firstIndex(of: task2.status) ?? 0
+                    return task1position < task2position
+                }
+            }
+        }
+    }
     var sectionTypesPosition: [TaskPriority] = [.important, .normal]
     var taskStatusPosition: [TaskStatus] = [.planned, .complited]
 
@@ -25,13 +35,6 @@ class TaskListController: UITableViewController {
         }
         taskStorage.loadTasks().forEach { task in
             tasks[task.type]?.append(task)
-        }
-        for (taskGroupPriority, taskGroup) in tasks {
-            tasks[taskGroupPriority] = taskGroup.sorted { task1, task2 in
-                let task1position = taskStatusPosition.firstIndex(of: task1.status) ?? 0
-                let task2position = taskStatusPosition.firstIndex(of: task2.status) ?? 0
-                return task1position < task2position
-            }
         }
     }
 
@@ -110,6 +113,30 @@ class TaskListController: UITableViewController {
             resultSymbol = ""
         }
         return resultSymbol
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let taskType = sectionTypesPosition[indexPath.section]
+        guard let _ = tasks[taskType]?[indexPath.row] else { return }
+        // Убеждаемся, что задача не является выполненной
+        guard tasks[taskType]?[indexPath.row].status == .planned else {
+            tableView.deselectRow(at: indexPath, animated: true)
+            return
+        }
+        tasks[taskType]?[indexPath.row].status = .complited
+        tableView.reloadSections(IndexSet(arrayLiteral: indexPath.section), with: .automatic)
+    }
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let taskType = sectionTypesPosition[indexPath.section]
+        guard let _ = tasks[taskType]?[indexPath.row] else { return nil }
+        guard tasks[taskType]?[indexPath.row].status == .complited else { return nil }
+        
+        let actionSwipeInstance = UIContextualAction(style: .normal, title: "not completed") { _, _, _ in
+            self.tasks[taskType]![indexPath.row].status = .planned
+            self.tableView.reloadSections(IndexSet(arrayLiteral: indexPath.section), with: .automatic)
+        }
+        return UISwipeActionsConfiguration(actions: [actionSwipeInstance])
     }
 
 
