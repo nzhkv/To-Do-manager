@@ -18,6 +18,11 @@ class TaskListController: UITableViewController {
                     let task2position = taskStatusPosition.firstIndex(of: task2.status) ?? 0
                     return task1position < task2position
                 }
+                var savingArray : [TaskProtocol] = []
+                tasks.forEach { _, value in
+                    savingArray += value
+                }
+                taskStorage.saveTasks(savingArray)
             }
         }
     }
@@ -196,6 +201,16 @@ class TaskListController: UITableViewController {
                 let newTask = Task(title: title, type: type, status: status)
                 tasks[type]?.append(newTask)
                 tableView.reloadData()
+            }
+        }
+    }
+    
+    func setTasks(_ taskCollection: [TaskProtocol]) {
+        sectionTypesPosition.forEach { taskType in
+            tasks[taskType] = []
+            
+            taskCollection.forEach { task in
+                tasks[taskType]?.append(task)
             }
         }
     }
