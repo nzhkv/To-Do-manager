@@ -8,30 +8,35 @@
 import UIKit
 
 class TaskTypeController: UITableViewController {
+    
+    typealias TypeCellDescription = (type: TaskPriority, title: String, description: String)
+    
+    private var taskTypesInformation: [TypeCellDescription] = [
+        (type: .important, title: "Important", description: "This type of task is the highest priority for execution. All important tasks are displayed at the very top of the task list"),
+        (type: .normal, title: "Normal", description: "Normal priority task")
+    ]
+    
+    var selectedType: TaskPriority = .normal
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        let cellTypeNib = UINib(nibName: "TaskTypeCell", bundle: nil)
+        tableView.register(cellTypeNib, forCellReuseIdentifier: "TaskTypeCell")
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return taskTypesInformation.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
@@ -39,7 +44,7 @@ class TaskTypeController: UITableViewController {
 
         return cell
     }
-    */
+
 
     /*
     // Override to support conditional editing of the table view.
