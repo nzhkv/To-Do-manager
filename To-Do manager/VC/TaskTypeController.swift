@@ -38,9 +38,17 @@ class TaskTypeController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TaskTypeCell", for: indexPath) as! TaskTypeCell
+        
+        let typeDescription = taskTypesInformation[indexPath.row]
+        cell.typeTitle.text = typeDescription.title
+        cell.typeDescription.text = typeDescription.description
+        
+        if selectedType == typeDescription.type {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
+        }
 
         return cell
     }
