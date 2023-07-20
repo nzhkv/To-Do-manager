@@ -11,12 +11,13 @@ class TaskEditController: UITableViewController {
     
     @IBOutlet var taskTitle: UITextField!
     @IBOutlet var taskTypeLabel: UILabel!
+    @IBOutlet weak var taskStatusSwitch: UISwitch!
     
     var taskText: String = ""
     var taskType: TaskPriority = .normal
     var taskStatus: TaskStatus = .planned
     
-    var doAfterEdir: ((String, TaskPriority, TaskStatus) -> Void)?
+    var doAfterEdit: ((String, TaskPriority, TaskStatus) -> Void)?
     
     private var taskTitles: [TaskPriority:String] = [
         .important: "Important",
@@ -27,6 +28,10 @@ class TaskEditController: UITableViewController {
         super.viewDidLoad()
         taskTitle?.text = taskText
         taskTypeLabel.text = taskTitles[taskType]
+        
+        if taskStatus == .complited {
+            taskStatusSwitch.isOn = true
+        }
     }
 
     // MARK: - Table view data source
@@ -51,6 +56,15 @@ class TaskEditController: UITableViewController {
             }
         }
     }
+    
+    @IBAction func saveTask(_ sender: Any) {
+        let title = taskTitle.text ?? ""
+        let type = taskType
+        let status: TaskStatus = taskStatusSwitch.isOn ? .complited : .planned
+        doAfterEdit?(title, type, status)
+        navigationController?.popViewController(animated: true)
+    }
+    
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

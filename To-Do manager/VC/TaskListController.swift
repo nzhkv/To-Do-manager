@@ -155,13 +155,49 @@ class TaskListController: UITableViewController {
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let taskType = sectionTypesPosition[indexPath.section]
         guard let _ = tasks[taskType]?[indexPath.row] else { return nil }
-        guard tasks[taskType]?[indexPath.row].status == .complited else { return nil }
+//        guard tasks[taskType]?[indexPath.row].status == .complited else { return nil }
         
         let actionSwipeInstance = UIContextualAction(style: .normal, title: "not completed") { _, _, _ in
             self.tasks[taskType]![indexPath.row].status = .planned
             self.tableView.reloadSections(IndexSet(arrayLiteral: indexPath.section), with: .automatic)
         }
-        return UISwipeActionsConfiguration(actions: [actionSwipeInstance])
+        
+        let actionEditInstance = UIContextualAction(style: .normal, title: "Change") { _, _, _ in
+            let editScreen = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "TaskEditController") as! TaskEditController
+            
+            editScreen.taskText = self.tasks[taskType]![indexPath.row].title
+            editScreen.taskType = self.tasks[taskType]![indexPath.row].type
+            editScreen.taskStatus = self.tasks[taskType]![indexPath.row].status
+            
+            editScreen.doAfterEdit = { [unowned self] title, type, status in
+                let editedTask = Task(title: title, type: type, status: status)
+                tasks[taskType]![indexPath.row] = editedTask
+                tableView.reloadData()
+            }
+            
+            self.navigationController?.pushViewController(editScreen, animated: true)
+        }
+        actionEditInstance.backgroundColor = .darkGray
+        
+        let actionsConfigurates: UISwipeActionsConfiguration
+        if tasks[taskType]![indexPath.row].status == .complited {
+            actionsConfigurates = UISwipeActionsConfiguration(actions: [actionSwipeInstance, actionEditInstance])
+        } else {
+            actionsConfigurates = UISwipeActionsConfiguration(actions: [actionEditInstance])
+        }
+        
+        return actionsConfigurates
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toCreateScreen" {
+            let destination = segue.destination as! TaskEditController
+            destination.doAfterEdit = { [unowned self] title, type, status in
+                let newTask = Task(title: title, type: type, status: status)
+                tasks[type]?.append(newTask)
+                tableView.reloadData()
+            }
+        }
     }
 
 }
