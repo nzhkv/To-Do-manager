@@ -40,6 +40,17 @@ class TaskEditController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return 3
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toTaskTypeScreen" {
+            let destination = segue.destination as! TaskTypeController
+            destination.selectedType = taskType
+            destination.doAfterTypeSelected = { [unowned self] selectedType in
+                taskType = selectedType
+                taskTypeLabel.text = taskTitles[taskType]
+            }
+        }
+    }
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
